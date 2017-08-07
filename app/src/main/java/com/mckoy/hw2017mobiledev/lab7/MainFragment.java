@@ -37,6 +37,8 @@ public class MainFragment extends Fragment {
         final ListView pingListView = v.findViewById(R.id.all_pings_list_view);
         final ListView specificUserPingListView = v.findViewById(R.id.queried_pings_list_view);
 
+
+
         // Set up pingListView
         PingSource.get(getContext()).getPings(new PingSource.PingListener() {
             @Override

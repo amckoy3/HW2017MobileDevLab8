@@ -52,7 +52,7 @@ public class PingSource {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Ping> list = new Vector<Ping>();
-                Iterable<DataSnapshot> pingSnapshots = dataSnapshot.child("ping").getChildren();
+                Iterable<DataSnapshot> pingSnapshots = dataSnapshot.getChildren();
                 Iterator<DataSnapshot> child = pingSnapshots.iterator();
                 while (child.hasNext()) {
                     Ping ping = new Ping(child.next());
@@ -73,12 +73,12 @@ public class PingSource {
     //at most 50
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         DatabaseReference pingsRef = databaseReference.child("pings");
-        Query userQuery = pingsRef.orderByChild("userID").equalTo(userId).limitToLast(50);
+        Query userQuery = pingsRef.orderByChild("userId").equalTo(userId).limitToLast(50);
         userQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Ping> list = new Vector<Ping>();
-                Iterable<DataSnapshot> pingSnapshots = dataSnapshot.child("pings").getChildren();
+                Iterable<DataSnapshot> pingSnapshots = dataSnapshot.getChildren();
                 Iterator<DataSnapshot> child = pingSnapshots.iterator();
                 while (child.hasNext()){
                     Ping ping = new Ping(child.next());
@@ -100,7 +100,7 @@ public class PingSource {
         DatabaseReference newPingRef = pingsRef.push();
         Map<String, Object> pingValMap = new HashMap<String, Object>() {{
             put ("userName", ping.getUserName());
-            put("userID", ping.getUserId());
+            put("userId", ping.getUserId());
             put("timestamp",ServerValue.TIMESTAMP);}
         };
         newPingRef.setValue(pingValMap);
